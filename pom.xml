@@ -5,12 +5,18 @@
 	<groupId>com.microservices</groupId>
 	<artifactId>microservices-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<modules>
+		<module>twitter-to-kafka-service</module>
+	</modules>
 	<name>microservices-demo</name>
 	<description>Event-Driven Microservices: Spring Boot, Kafka and Elastic</description>
 	<packaging>pom</packaging>
 	<properties>
 		<java.version>11</java.version>
+
 		<spring-boot.version>2.5.8</spring-boot.version>
+		<lombok.version>1.18.22</lombok.version>
+		<twitter4j.version>4.0.7</twitter4j.version>
 
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 	</properties>
@@ -24,16 +30,17 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-
 			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter</artifactId>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
 			</dependency>
 
+			<!-- https://mvnrepository.com/artifact/org.twitter4j/twitter4j-stream -->
 			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-test</artifactId>
-				<scope>test</scope>
+				<groupId>org.twitter4j</groupId>
+				<artifactId>twitter4j-stream</artifactId>
+				<version>${twitter4j.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
