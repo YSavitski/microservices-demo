@@ -7,6 +7,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<modules>
 		<module>twitter-to-kafka-service</module>
+		<module>app-config-data</module>
+		<module>kafka</module>
 	</modules>
 	<name>microservices-demo</name>
 	<description>Event-Driven Microservices: Spring Boot, Kafka and Elastic</description>
@@ -17,12 +19,19 @@
 		<spring-boot.version>2.5.8</spring-boot.version>
 		<lombok.version>1.18.22</lombok.version>
 		<twitter4j.version>4.0.7</twitter4j.version>
+		<avro.version>1.11.0</avro.version>
 
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>com.microservices</groupId>
+				<artifactId>app-config-data</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
@@ -42,6 +51,13 @@
 				<artifactId>twitter4j-stream</artifactId>
 				<version>${twitter4j.version}</version>
 			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.apache.avro/avro -->
+			<dependency>
+				<groupId>org.apache.avro</groupId>
+				<artifactId>avro</artifactId>
+				<version>${avro.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -66,6 +82,11 @@
 					<configuration>
 						<release>${java.version}</release>
 					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.avro</groupId>
+					<artifactId>avro-maven-plugin</artifactId>
+					<version>${avro.version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
