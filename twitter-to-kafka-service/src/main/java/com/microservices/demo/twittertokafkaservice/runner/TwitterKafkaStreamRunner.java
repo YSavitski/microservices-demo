@@ -1,6 +1,6 @@
 package com.microservices.demo.twittertokafkaservice.runner;
 
-import com.microservices.demo.config.TwitterToKafkaServiceConfiguration;
+import com.microservices.demo.config.TwitterToKafkaServiceConfigProperties;
 import com.microservices.demo.twittertokafkaservice.listener.TwitterKafkaStatusListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +19,13 @@ import java.util.Arrays;
 public class TwitterKafkaStreamRunner implements StreamRunner {
 	private static final Logger log = LoggerFactory.getLogger(TwitterKafkaStreamRunner.class);
 
-	private final TwitterToKafkaServiceConfiguration twitterToKafkaServiceConfiguration;
+	private final TwitterToKafkaServiceConfigProperties twitterToKafkaServiceConfigProperties;
 	private final TwitterKafkaStatusListener twitterKafkaStatusListener;
 
 	private TwitterStream twitterStream;
 
-	public TwitterKafkaStreamRunner(TwitterToKafkaServiceConfiguration twitterToKafkaServiceConfiguration, TwitterKafkaStatusListener twitterKafkaStatusListener) {
-		this.twitterToKafkaServiceConfiguration = twitterToKafkaServiceConfiguration;
+	public TwitterKafkaStreamRunner(TwitterToKafkaServiceConfigProperties twitterToKafkaServiceConfigProperties, TwitterKafkaStatusListener twitterKafkaStatusListener) {
+		this.twitterToKafkaServiceConfigProperties = twitterToKafkaServiceConfigProperties;
 		this.twitterKafkaStatusListener = twitterKafkaStatusListener;
 	}
 
@@ -45,7 +45,7 @@ public class TwitterKafkaStreamRunner implements StreamRunner {
 	}
 
 	private void setTwitterStreamFilter() {
-		final String[] filteringKeywords = twitterToKafkaServiceConfiguration.getTwitterKeywords().toArray(String[]::new);
+		final String[] filteringKeywords = twitterToKafkaServiceConfigProperties.getTwitterKeywords().toArray(String[]::new);
 		var filterQuery = new FilterQuery(filteringKeywords);
 		twitterStream.filter(filterQuery);
 		log.info("Started filtering twitter stream for keywords {}", Arrays.toString(filteringKeywords));

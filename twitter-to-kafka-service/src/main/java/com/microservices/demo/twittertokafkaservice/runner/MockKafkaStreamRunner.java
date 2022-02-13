@@ -1,6 +1,6 @@
 package com.microservices.demo.twittertokafkaservice.runner;
 
-import com.microservices.demo.config.TwitterToKafkaServiceConfiguration;
+import com.microservices.demo.config.TwitterToKafkaServiceConfigProperties;
 import com.microservices.demo.twittertokafkaservice.exception.TwitterToKafkaServiceException;
 import com.microservices.demo.twittertokafkaservice.listener.TwitterKafkaStatusListener;
 import org.slf4j.Logger;
@@ -26,11 +26,11 @@ import java.util.concurrent.ThreadLocalRandom;
 public class MockKafkaStreamRunner implements StreamRunner {
 	private static final Logger log = LoggerFactory.getLogger(MockKafkaStreamRunner.class);
 
-	private final TwitterToKafkaServiceConfiguration twitterToKafkaServiceConfiguration;
+	private final TwitterToKafkaServiceConfigProperties twitterToKafkaServiceConfigProperties;
 	private final TwitterKafkaStatusListener twitterKafkaStatusListener;
 
-	public MockKafkaStreamRunner(TwitterToKafkaServiceConfiguration twitterToKafkaServiceConfiguration, TwitterKafkaStatusListener twitterKafkaStatusListener) {
-		this.twitterToKafkaServiceConfiguration = twitterToKafkaServiceConfiguration;
+	public MockKafkaStreamRunner(TwitterToKafkaServiceConfigProperties twitterToKafkaServiceConfigProperties, TwitterKafkaStatusListener twitterKafkaStatusListener) {
+		this.twitterToKafkaServiceConfigProperties = twitterToKafkaServiceConfigProperties;
 		this.twitterKafkaStatusListener = twitterKafkaStatusListener;
 	}
 
@@ -73,9 +73,9 @@ public class MockKafkaStreamRunner implements StreamRunner {
 
 	@Override
 	public void start() throws TwitterException {
-		final String[] filteringKeywords = twitterToKafkaServiceConfiguration.getTwitterKeywords().toArray(new String[0]);
-		final int minTweetLength = twitterToKafkaServiceConfiguration.getMockMinTweetLength();
-		final int maxTweetLength = twitterToKafkaServiceConfiguration.getMockMaxTweetLength();
+		final String[] filteringKeywords = twitterToKafkaServiceConfigProperties.getTwitterKeywords().toArray(new String[0]);
+		final int minTweetLength = twitterToKafkaServiceConfigProperties.getMockMinTweetLength();
+		final int maxTweetLength = twitterToKafkaServiceConfigProperties.getMockMaxTweetLength();
 		log.info("Starting mock filtering twitter streams for keywords {}", Arrays.toString(filteringKeywords));
 		simulateTwitterStream(filteringKeywords, minTweetLength, maxTweetLength);
 	}
@@ -87,7 +87,7 @@ public class MockKafkaStreamRunner implements StreamRunner {
 					String formattedTweetAsRawJson = getFormattedTweet(filteringKeywords, minTweetLength, maxTweetLength);
 					Status status = TwitterObjectFactory.createStatus(formattedTweetAsRawJson);
 					twitterKafkaStatusListener.onStatus(status);
-					sleep(twitterToKafkaServiceConfiguration.getMockSleep());
+					sleep(twitterToKafkaServiceConfigProperties.getMockSleep());
 				}
 			} catch (TwitterException e) {
 				log.error("Error creating twitter status!", e);

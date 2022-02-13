@@ -5,19 +5,17 @@
  */
 package com.microservices.demo.kafka.avro.model;
 
-import org.apache.avro.generic.GenericArray;
-import org.apache.avro.specific.SpecificData;
-import org.apache.avro.util.Utf8;
-import org.apache.avro.message.BinaryMessageEncoder;
 import org.apache.avro.message.BinaryMessageDecoder;
+import org.apache.avro.message.BinaryMessageEncoder;
 import org.apache.avro.message.SchemaStore;
+import org.apache.avro.specific.SpecificData;
 
 @org.apache.avro.specific.AvroGenerated
 public class TwitterAvroModel extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 5073202721319194411L;
+  private static final long serialVersionUID = -5190598237215532904L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"TwitterAvroModel\",\"namespace\":\"com.microservices.demo.kafka.avro.model\",\"fields\":[{\"name\":\"userId\",\"type\":\"long\"},{\"name\":\"id\",\"type\":\"long\"},{\"name\":\"text\",\"type\":[\"null\",\"long\"]},{\"name\":\"createdAt\",\"type\":[\"null\",\"long\"],\"logicalType\":[\"null\",\"date\"]}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"TwitterAvroModel\",\"namespace\":\"com.microservices.demo.kafka.avro.model\",\"fields\":[{\"name\":\"userId\",\"type\":\"long\"},{\"name\":\"id\",\"type\":\"long\"},{\"name\":\"text\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}]},{\"name\":\"createdAt\",\"type\":[\"null\",\"long\"],\"logicalType\":[\"null\",\"date\"]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -75,7 +73,7 @@ public class TwitterAvroModel extends org.apache.avro.specific.SpecificRecordBas
 
   private long userId;
   private long id;
-  private java.lang.Long text;
+  private java.lang.String text;
   private java.lang.Long createdAt;
 
   /**
@@ -92,7 +90,7 @@ public class TwitterAvroModel extends org.apache.avro.specific.SpecificRecordBas
    * @param text The new value for text
    * @param createdAt The new value for createdAt
    */
-  public TwitterAvroModel(java.lang.Long userId, java.lang.Long id, java.lang.Long text, java.lang.Long createdAt) {
+  public TwitterAvroModel(java.lang.Long userId, java.lang.Long id, java.lang.String text, java.lang.Long createdAt) {
     this.userId = userId;
     this.id = id;
     this.text = text;
@@ -118,7 +116,7 @@ public class TwitterAvroModel extends org.apache.avro.specific.SpecificRecordBas
     switch (field$) {
     case 0: userId = (java.lang.Long)value$; break;
     case 1: id = (java.lang.Long)value$; break;
-    case 2: text = (java.lang.Long)value$; break;
+    case 2: text = value$ != null ? value$.toString() : null; break;
     case 3: createdAt = (java.lang.Long)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
@@ -162,7 +160,7 @@ public class TwitterAvroModel extends org.apache.avro.specific.SpecificRecordBas
    * Gets the value of the 'text' field.
    * @return The value of the 'text' field.
    */
-  public java.lang.Long getText() {
+  public java.lang.String getText() {
     return text;
   }
 
@@ -171,7 +169,7 @@ public class TwitterAvroModel extends org.apache.avro.specific.SpecificRecordBas
    * Sets the value of the 'text' field.
    * @param value the value to set.
    */
-  public void setText(java.lang.Long value) {
+  public void setText(java.lang.String value) {
     this.text = value;
   }
 
@@ -235,7 +233,7 @@ public class TwitterAvroModel extends org.apache.avro.specific.SpecificRecordBas
 
     private long userId;
     private long id;
-    private java.lang.Long text;
+    private java.lang.String text;
     private java.lang.Long createdAt;
 
     /** Creates a new Builder */
@@ -373,7 +371,7 @@ public class TwitterAvroModel extends org.apache.avro.specific.SpecificRecordBas
       * Gets the value of the 'text' field.
       * @return The value.
       */
-    public java.lang.Long getText() {
+    public java.lang.String getText() {
       return text;
     }
 
@@ -383,7 +381,7 @@ public class TwitterAvroModel extends org.apache.avro.specific.SpecificRecordBas
       * @param value The value of 'text'.
       * @return This builder.
       */
-    public com.microservices.demo.kafka.avro.model.TwitterAvroModel.Builder setText(java.lang.Long value) {
+    public com.microservices.demo.kafka.avro.model.TwitterAvroModel.Builder setText(java.lang.String value) {
       validate(fields()[2], value);
       this.text = value;
       fieldSetFlags()[2] = true;
@@ -456,7 +454,7 @@ public class TwitterAvroModel extends org.apache.avro.specific.SpecificRecordBas
         TwitterAvroModel record = new TwitterAvroModel();
         record.userId = fieldSetFlags()[0] ? this.userId : (java.lang.Long) defaultValue(fields()[0]);
         record.id = fieldSetFlags()[1] ? this.id : (java.lang.Long) defaultValue(fields()[1]);
-        record.text = fieldSetFlags()[2] ? this.text : (java.lang.Long) defaultValue(fields()[2]);
+        record.text = fieldSetFlags()[2] ? this.text : (java.lang.String) defaultValue(fields()[2]);
         record.createdAt = fieldSetFlags()[3] ? this.createdAt : (java.lang.Long) defaultValue(fields()[3]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
@@ -499,7 +497,7 @@ public class TwitterAvroModel extends org.apache.avro.specific.SpecificRecordBas
       out.writeNull();
     } else {
       out.writeIndex(1);
-      out.writeLong(this.text);
+      out.writeString(this.text);
     }
 
     if (this.createdAt == null) {
@@ -525,7 +523,7 @@ public class TwitterAvroModel extends org.apache.avro.specific.SpecificRecordBas
         in.readNull();
         this.text = null;
       } else {
-        this.text = in.readLong();
+        this.text = in.readString();
       }
 
       if (in.readIndex() != 1) {
@@ -551,7 +549,7 @@ public class TwitterAvroModel extends org.apache.avro.specific.SpecificRecordBas
             in.readNull();
             this.text = null;
           } else {
-            this.text = in.readLong();
+            this.text = in.readString();
           }
           break;
 
